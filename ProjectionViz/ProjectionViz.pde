@@ -1,4 +1,6 @@
-
+ArrayList<Polygon> shapes=new ArrayList<Polygon>();
+Polygon poly1;
+Polygon poly2;
 float screenDiagonal = 0;
 PVector axis = new PVector(1, 0);
 PVector cam = new PVector(100, 100);
@@ -14,6 +16,8 @@ void draw(){
   moveAxes();
   drawAxes();
   Keys.update();
+  for(Polygon p:shapes) p.draw();
+  update();
 }
 void moveAxes() {
   if(mousePressed) {
@@ -25,7 +29,11 @@ void moveAxes() {
     }
   }
 }
-
+void update()
+{
+  poly1.update();
+  poly2.update();
+}
 void drawAxes(){
   pushMatrix();
   translate(cam.x, cam.y);
@@ -40,4 +48,22 @@ void drawAxes(){
   strokeWeight(2);
   line(p1.x, p1.y, p2.x, p2.y);
   popMatrix();
+}
+Polygon makePoly1() {
+  Polygon p = new Polygon();
+  shapes.add(p);
+  p.addPoint(-10, -10);
+  p.addPoint(10, -30);
+  p.addPoint(20, 30);
+  p.addPoint(-20, 20);
+  return p;
+}
+Polygon makePoly2() {
+  Polygon p = new Polygon();
+  p.scale = 3;
+  shapes.add(p);
+  p.addPoint(-10, -10);
+  p.addPoint(10, -30);
+  p.addPoint(20, 30);
+  return p;
 }
